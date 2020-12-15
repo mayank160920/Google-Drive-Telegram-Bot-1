@@ -9,7 +9,7 @@ from bot import DOWNLOAD_DIRECTORY, LOGGER
 from bot.config import Messages, BotCommands
 from pyrogram.errors import FloodWait, RPCError
 
-@Client.on_message(filters.incoming & filters.text & (filters.command(BotCommands.Download)) | filters.regex('^(ht|f)tp*'))
+@Client.on_message(filters.command(BotCommands.Download)) | filters.regex('^(ht|f)tp*'))
 def _download(client, message):
   user_id = message.from_user.id
   if not message.media:
@@ -68,7 +68,7 @@ def _telegram_file(client, message):
   LOGGER.info(f'Deleteing: {file_path}')
   os.remove(file_path)
 
-@Client.on_message(filters.incoming & filters.command(BotCommands.Ytdl))
+@Client.on_message(filters.command(BotCommands.Ytdl))
 def _ytdl(client, message):
   user_id = message.from_user.id
   if len(message.command) > 1:
